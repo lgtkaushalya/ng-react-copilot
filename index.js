@@ -10,7 +10,7 @@ const inquirer  = require('./lib/inquirer');
 const scan  = require('./lib/scan');
 const constants = require('./lib/constants');
 const reports = require('./lib/reports');
-const errors = require('./lib/errors');
+const refactorings = require('./lib/refactorings');
 
 clear();
 
@@ -25,9 +25,9 @@ const run = async () => {
         let rootPath = getRootPath();
         inquirer.selectModes().then(answers => {
             try {
-                let errorsToScan = getErrorsToScan(answers);
-                let scanResults = scanFiles(rootPath, answers, errorsToScan);
-                postProcessScanResults(scanResults, answers, errorsToScan);
+                let refactoringsToScan = getRefactoringsToScan(answers);
+                let scanResults = scanFiles(rootPath, answers, refactoringsToScan);
+                postProcessScanResults(scanResults, answers, refactoringsToScan);
             } catch (e) {
                 printErrorMessage(e.message);
             }
@@ -40,37 +40,37 @@ const run = async () => {
 
 run();
 
-function getErrorsToScan(answers) {
-    let allErrors = errors;
-    if (answers.errorMode == constants.errorMode_All) {
-        return allErrors;
+function getRefactoringsToScan(answers) {
+    let allRefactorings = refactorings;
+    if (answers.refactoringMode == constants.refactoringMode_All) {
+        return allRefactorings;
     } else {
-        return allErrors.filter(function(error) {
-            return answers.errorTypes.includes(error.value);
+        return allRefactorings.filter(function(refactoring) {
+            return answers.refactoringTypes.includes(refactoring.value);
         });
     }
 }
 
-function scanFiles(rootPath, answers, errorsToScan) {
+function scanFiles(rootPath, answers, refactoringsToScan) {
     let status = new Spinner('Scanning for files ...');
     status.start();
     let scanResults = [];
     if (answers.fileMode == constants.fileMode_Single && 'filePath' in answers) {
-        scanResults = scan.scanAFile(answers.filePath, errorsToScan);
+        scanResults = scan.scanAFile(answers.filePath, refactoringsToScan);
     } else {
-        scanResults = scan.scanADirectory(rootPath, errorsToScan);
+        scanResults = scan.scanADirectory(rootPath, refactoringsToScan);
     }
     status.stop();
     return scanResults;
 }
 
-function postProcessScanResults(scanResults, answers, errorsToScan) {
+function postProcessScanResults(scanResults, answers, refactoringsToScan) {
     reports.printHighlights(scanResults);
 
-    if (scanResults.ERRORS.length > 0 && answers.scanMode == constants.scanMode_Analyze) {
+    if (scanResults.REFACTORINGS.length > 0 && answers.scanMode == constants.scanMode_Analyze) {
         console.log(chalk.blue('The scan results are ready to be exported.'));
         inquirer.selectReportType().then(answers => {
-            reports.printReport(scanResults, answers.reportType, errorsToScan);
+            reports.printReport(scanResults, answers.reportType, refactoringsToScan);
         });
     } else if (answers.scanMode == constants.scanMode_Refactor) {
 
