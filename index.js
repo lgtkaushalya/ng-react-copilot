@@ -11,6 +11,10 @@ const scan  = require('./lib/scan');
 const constants = require('./lib/constants');
 const reports = require('./lib/reports');
 const refactorings = require('./lib/refactorings');
+var CLIEngine = require("eslint").CLIEngine;
+global.htmlhint = require("htmlhint").HTMLHint;
+global.htmlhintConfig = JSON.parse(files.readFileContent(".htmlhintrc"));
+global.eslintCli = new CLIEngine();
 
 clear();
 
@@ -70,7 +74,7 @@ function postProcessScanResults(scanResults, answers, refactoringsToScan) {
     if (scanResults.REFACTORINGS.length > 0 && answers.scanMode == constants.scanMode_Analyze) {
         console.log(chalk.blue('The scan results are ready to be exported.'));
         inquirer.selectReportType().then(answers => {
-            reports.printReport(scanResults, answers.reportType, refactoringsToScan);
+            reports.printReport(scanResults, answers.reportType);
         });
     } else if (answers.scanMode == constants.scanMode_Refactor) {
 
