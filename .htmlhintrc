@@ -1,5 +1,6 @@
 {
     "extract-ng-controller": true,
     "extract-ng-include": true,
-    "break-large-templates-to-directives": true
+    "break-large-templates-to-directives": true,
+    "ng-transclude": true
 }
