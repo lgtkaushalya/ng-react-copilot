@@ -3,6 +3,7 @@
     "plugins": ["angular", "ng-react-copilot", "html"],
     "rules": {
         "ng-react-copilot/ng-directive-template-naming": "error",
-        "angular/directive-restrict": ["error", {"restrict": "E"}]
+        "angular/directive-restrict": ["error", {"restrict": "E"}],
+        "angular/no-inline-template": "error"
     }
 }
