@@ -1,7 +1,8 @@
 {
     "extends": [],
-    "plugins": ["ng-react-copilot", "html"],
+    "plugins": ["angular", "ng-react-copilot", "html"],
     "rules": {
-        "ng-react-copilot/ng-directive-template-naming": "error"
+        "ng-react-copilot/ng-directive-template-naming": "error",
+        "angular/directive-restrict": ["error", {"restrict": "E"}]
     }
 }
