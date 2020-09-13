@@ -1,7 +1,7 @@
 {
-    "extends": ["plugin:angular/johnpapa"],
-    "plugins": ["angular", "ng-react-copilot", "html"],
+    "extends": [],
+    "plugins": ["ng-react-copilot", "html"],
     "rules": {
-        "ng-react-copilot/ng-scope-validation": "error"
+        "ng-react-copilot/ng-directive-template-naming": "error"
     }
 }

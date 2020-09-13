@@ -1,4 +1,5 @@
 {
-    "attr-value-double-quotes": true,
-    "test-rule": true
+    "extract-ng-controller": true,
+    "extract-ng-include": true,
+    "break-large-templates-to-directives": true
 }
