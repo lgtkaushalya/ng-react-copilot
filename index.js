@@ -29,9 +29,12 @@ const run = async () => {
         let rootPath = getRootPath();
         inquirer.selectModes().then(answers => {
             try {
-                let refactoringsToScan = getRefactoringsToScan(answers);
-                let scanResults = scanFiles(rootPath, answers, refactoringsToScan);
-                postProcessScanResults(scanResults, answers, refactoringsToScan);
+                if (answers.scanMode == constants.scanMode_Analyze) {
+                    let scanResults = scanFiles(rootPath, answers);
+                    postProcessScanResults(scanResults, answers);
+                } else if(answers.scanMode == constants.scanMode_Refactor) {
+                    refactorFile(answers);
+                }
             } catch (e) {
                 printErrorMessage(e.message);
             }
@@ -44,31 +47,38 @@ const run = async () => {
 
 run();
 
-function getRefactoringsToScan(answers) {
-    let allRefactorings = refactorings;
-    if (answers.refactoringMode == constants.refactoringMode_All) {
-        return allRefactorings;
-    } else {
-        return allRefactorings.filter(function(refactoring) {
-            return answers.refactoringTypes.includes(refactoring.value);
-        });
+function refactorFile(answers) {
+    let refactoringsToPerform = getRefactoringsToScan(answers);
+    let fileContent = files.readFileContent(answers.filePath);
+    if ('filePath' in answers) {
+        for (var key in refactoringsToPerform) {
+            var refactoring = refactoringsToPerform[key];
+            refactoring.refactor(fileContent, answers.filePath);
+        }
     }
+
+}
+function getRefactoringsToPerform(answers) {
+    let allRefactorings = refactorings;
+    return allRefactorings.filter(function(refactoring) {
+        return answers.refactoring.includes(refactoring.value);
+    });
 }
 
-function scanFiles(rootPath, answers, refactoringsToScan) {
+function scanFiles(rootPath, answers) {
     let status = new Spinner('Scanning for files ...');
     status.start();
     let scanResults = [];
     if (answers.fileMode == constants.fileMode_Single && 'filePath' in answers) {
-        scanResults = scan.scanAFile(answers.filePath, refactoringsToScan);
+        scanResults = scan.scanAFile(answers.filePath);
     } else {
-        scanResults = scan.scanADirectory(rootPath, refactoringsToScan);
+        scanResults = scan.scanADirectory(rootPath);
     }
     status.stop();
     return scanResults;
 }
 
-function postProcessScanResults(scanResults, answers, refactoringsToScan) {
+function postProcessScanResults(scanResults, answers) {
     reports.printHighlights(scanResults);
 
     if (scanResults.REFACTORINGS.length > 0 && answers.scanMode == constants.scanMode_Analyze) {
