@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/lgtkaushalya/ng-react-copilot#readme",
   "dependencies": {
+    "babel-eslint": "^10.1.0",
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
     "clui": "^0.3.6",
