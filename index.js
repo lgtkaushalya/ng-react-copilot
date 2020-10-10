@@ -48,7 +48,7 @@ const run = async () => {
 run();
 
 function refactorFile(answers) {
-    let refactoringsToPerform = getRefactoringsToScan(answers);
+    let refactoringsToPerform = getRefactoringsToPerform(answers);
     let fileContent = files.readFileContent(answers.filePath);
     if ('filePath' in answers) {
         for (var key in refactoringsToPerform) {

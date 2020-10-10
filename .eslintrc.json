@@ -6,6 +6,7 @@
         "ng-react-copilot/ng-directive-template-naming": "error",
         "ng-react-copilot/isolate-scope": "error",
         "ng-react-copilot/replace-angular-inbuilt-directives": "error",
+        "ng-react-copilot/replace-angular-scope-references-in-react-components": "error",
         "angular/directive-restrict": ["error", {"restrict": "E"}],
         "angular/no-inline-template": "error"
     }
