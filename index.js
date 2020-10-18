@@ -24,6 +24,9 @@ console.log(
   )
 );
 
+global.extratedData = {"directives": [], "reactComponents": []};
+global.rootPath = getRootPath();
+
 const run = async () => {
     try {
         let rootPath = getRootPath();
@@ -34,6 +37,9 @@ const run = async () => {
                     postProcessScanResults(scanResults, answers);
                 } else if(answers.scanMode == constants.scanMode_Refactor) {
                     refactorFile(answers);
+                } else if(answers.scanMode == constants.scanMode_Extract_Data) {
+                    scanFiles(rootPath, answers);
+                    writeExtractedData();
                 }
             } catch (e) {
                 printErrorMessage(e.message);
@@ -58,6 +64,16 @@ function refactorFile(answers) {
     }
 
 }
+
+function writeExtractedData() {
+    let fileContent = JSON.stringify(global.extratedData, null, 2);
+    let directoryPath = global.rootPath.replace(/\/$/, '') + '/.ng-react-copilot-data/';
+    if (!files.directoryExists(directoryPath)) {
+        files.createDirectory(directoryPath);
+    }
+    files.writeToFile(fileContent, directoryPath + 'extracted_data.json');
+}
+
 function getRefactoringsToPerform(answers) {
     let allRefactorings = refactorings;
     return allRefactorings.filter(function(refactoring) {

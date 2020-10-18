@@ -2,5 +2,6 @@
     "extract-ng-controller": true,
     "extract-ng-include": true,
     "break-large-templates-to-directives": true,
-    "ng-transclude": true
+    "ng-transclude": true,
+    "replace-directive-with-react-component": true
 }

@@ -1,13 +1,15 @@
 {
     "parser": "babel-eslint",
     "extends": [],
-    "plugins": ["angular", "ng-react-copilot", "html"],
+    "plugins": ["angular", "react", "ng-react-copilot", "html"],
     "rules": {
         "ng-react-copilot/ng-directive-template-naming": "error",
         "ng-react-copilot/isolate-scope": "error",
         "ng-react-copilot/replace-angular-inbuilt-directives": "error",
         "ng-react-copilot/replace-angular-scope-references-in-react-components": "error",
+        "ng-react-copilot/extract-directive-and-component-information":  "error",
         "angular/directive-restrict": ["error", {"restrict": "E"}],
-        "angular/no-inline-template": "error"
+        "angular/no-inline-template": "error",
+        "react/prop-types": "error"
     }
 }
