@@ -24,7 +24,7 @@ console.log(
   )
 );
 
-global.extratedData = {"directives": [], "reactComponents": []};
+global.extratedData = {"directives": [], "reactComponents": {}};
 global.rootPath = getRootPath();
 
 const run = async () => {

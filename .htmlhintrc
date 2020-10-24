@@ -3,5 +3,6 @@
     "extract-ng-include": true,
     "break-large-templates-to-directives": true,
     "ng-transclude": true,
-    "replace-directive-with-react-component": true
+    "replace-directive-with-react-component": true,
+    "missing-required-props-in-components": true
 }
