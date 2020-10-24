@@ -8,6 +8,7 @@
         "ng-react-copilot/replace-angular-inbuilt-directives": "error",
         "ng-react-copilot/replace-angular-scope-references-in-react-components": "error",
         "ng-react-copilot/extract-directive-and-component-information":  "error",
+        "replace-angular-scope-references-in-react-components": "error",
         "angular/directive-restrict": ["error", {"restrict": "E"}],
         "angular/no-inline-template": "error",
         "react/prop-types": "error"
