@@ -10,7 +10,7 @@
         "ng-react-copilot/extract-directive-and-component-information":  "error",
         "ng-react-copilot/replace-directive-with-react-component": "error",
         "ng-react-copilot/missing-required-props-in-components": "error",
-        "angular/directive-restrict": ["error", {"restrict": "E"}],
+        "angular/directive-restrict": ["error", {"restrict": "E", "explicit": "always"}],
         "angular/no-inline-template": "error",
         "react/prop-types": "error"
     }

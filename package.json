@@ -25,6 +25,7 @@
     "configstore": "^5.0.1",
     "console-table-printer": "^2.3.11",
     "eslint": "^7.8.1",
+    "eslint-plugin-angular": "^4.0.1",
     "eslint-plugin-ng-react-copilot": "file:../eslint-plugin-ng-react-copilot",
     "eslint-plugin-react": "^7.21.4",
     "figlet": "^1.5.0",
